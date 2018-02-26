@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
+import { HttpClientModule } from '@angular/common/http';
+import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
 
 
@@ -10,7 +10,11 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBue3KC6gisWdfLjgB5upkRtb8iK96R7WA'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
