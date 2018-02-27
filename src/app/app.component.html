@@ -1,12 +1,36 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>
-    Hover or click on a marker.
+  <h1 class="text-primary">
+    Click on a marker to see details.
   </h1>
-  <agm-map [latitude]="defaultLatitude" [longitude]="defaultLongitude" (mapReady)="getLatlons()">
+  <!--Need to integrate with nearby places findPlaces(marker.lat, marker.lon);-->
+  <agm-map [zoom]="13" [latitude]="defaultLatitude" [longitude]="defaultLongitude" (mapReady)="getLatlons()">
     <agm-marker *ngFor="let marker of validData" [latitude]="marker.lat" [longitude]="marker.lon"
-                (mouseenter)="getMarkerInfo(marker)" (markerClick)="getMarkerInfo(marker)"></agm-marker>
+                (mouseover)="getMarkerInfo(marker); openNav()" (markerClick)="getMarkerInfo(marker); openNav()"></agm-marker>
   </agm-map>
+</div>
+<!--<span id="menu-icon" (click)="openNav()">&#9776;</span>-->
+<div id="mySidenav" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+  <h3 class="text-center text-primary" *ngIf="markerInfo !== undefined  && markerInfo.status === '0'">{{markerInfo.item.configuration}} at {{markerInfo.item.area}}</h3>
+  <h3 class="text-center text-primary" *ngIf="markerInfo !== undefined  && markerInfo.status === '1'">Sorry! this property is not available.</h3>
+  <button *ngIf="markerInfo !== undefined  && markerInfo.status === '0'" class='left btn btn-default' (click)="showPrevPic(pic)">&lt;</button>
+  <img class="img-thumbnail" *ngIf="markerInfo !== undefined  && markerInfo.status === '0'" src="{{pic}}">
+  <button *ngIf="markerInfo !== undefined  && markerInfo.status === '0'" class='right btn btn-default' (click)="showNextPic(pic)">&gt;</button>
+  <br>
+  <hr>
+  <div class="row" *ngIf="markerInfo !== undefined && markerInfo.status === '0'">
+    <div class="col-xs-6">Rent: </div><div class="col-xs-6">{{markerInfo.item.m_rent}}</div>
+    <div class="col-xs-6">Security Deposit: </div><div class="col-xs-6">{{markerInfo.item.advance}}</div>
+    <div class="col-xs-6">Maintenance: </div><div class="col-xs-6">{{markerInfo.item.maintenance}}</div>
+    <div class="col-xs-6">Facing: </div><div class="col-xs-6">{{markerInfo.item.facing}}</div>
+    <div class="col-xs-6">BHK type: </div><div class="col-xs-6">{{markerInfo.item.configuration}}</div>
+    <div class="col-xs-6">Total Area: </div><div class="col-xs-6">{{markerInfo.item.totalArea}}</div>
+    <div class="col-xs-6">Furnishing Details: </div><div class="col-xs-6">{{markerInfo.item.fur}}</div>
+    <div class="col-xs-6">City: </div><div class="col-xs-6">{{markerInfo.item.city}}</div>
+    <div class="col-xs-6">Area: </div><div class="col-xs-6">{{markerInfo.item.area}}</div>
+  </div>
+
 </div>
 
 

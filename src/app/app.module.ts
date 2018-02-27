@@ -13,7 +13,8 @@ import { AppComponent } from './app.component';
     BrowserModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBue3KC6gisWdfLjgB5upkRtb8iK96R7WA'
+      apiKey: 'AIzaSyBue3KC6gisWdfLjgB5upkRtb8iK96R7WA',
+      libraries: ['places']
     })
   ],
   providers: [],
