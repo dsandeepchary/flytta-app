@@ -1,6 +1,7 @@
 # FlyttaApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
+
    1.Clone the project:      g`it clone http://github.com/dsandeepchary/flytta-app`
    
    2. Get into project:      `cd flytta-app`
