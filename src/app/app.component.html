@@ -4,9 +4,12 @@
     Click on a marker to see details.
   </h1>
   <!--Need to integrate with nearby places findPlaces(marker.lat, marker.lon);-->
-  <agm-map [zoom]="13" [latitude]="defaultLatitude" [longitude]="defaultLongitude" (mapReady)="getLatlons()">
+  <agm-map [zoom]="zoom" [latitude]="defaultLatitude" [longitude]="defaultLongitude" (mapReady)="getLatlons()">
     <agm-marker *ngFor="let marker of validData" [latitude]="marker.lat" [longitude]="marker.lon"
-                (mouseover)="getMarkerInfo(marker); openNav()" (markerClick)="getMarkerInfo(marker); openNav()"></agm-marker>
+                (mouseover)="getMarkerInfo(marker); openNav()" (markerClick)="findPlaces(marker.lat, marker.lon);getMarkerInfo(marker); openNav()"></agm-marker>
+    <!--<ng-template *ngIf="nearByPlaces !== undefined">
+    <agm-marker *ngFor="let place of nearByPlaces" [latitude]="place?.lat" [longitude]="place?.lon"></agm-marker>
+    </ng-template>-->
   </agm-map>
 </div>
 <!--<span id="menu-icon" (click)="openNav()">&#9776;</span>-->
@@ -15,7 +18,7 @@
   <h3 class="text-center text-primary" *ngIf="markerInfo !== undefined  && markerInfo.status === '0'">{{markerInfo.item.configuration}} at {{markerInfo.item.area}}</h3>
   <h3 class="text-center text-primary" *ngIf="markerInfo !== undefined  && markerInfo.status === '1'">Sorry! this property is not available.</h3>
   <button *ngIf="markerInfo !== undefined  && markerInfo.status === '0'" class='left btn btn-default' (click)="showPrevPic(pic)">&lt;</button>
-  <img class="img-thumbnail" *ngIf="markerInfo !== undefined  && markerInfo.status === '0'" src="{{pic}}">
+  <img class="img-thumbnail" *ngIf="pic && markerInfo !== undefined  && markerInfo.status === '0'" [src]="pic">
   <button *ngIf="markerInfo !== undefined  && markerInfo.status === '0'" class='right btn btn-default' (click)="showNextPic(pic)">&gt;</button>
   <br>
   <hr>

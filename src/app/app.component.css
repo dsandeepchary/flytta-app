@@ -38,6 +38,7 @@ img {
   margin: 0 9%;
 }
 .left, .right{
+  z-index: 9999 !important;
   border-radius: 999px;
 }
 .row {
