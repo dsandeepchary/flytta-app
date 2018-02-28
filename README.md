@@ -2,13 +2,15 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
-   1. Clone the project:      g`it clone http://github.com/dsandeepchary/flytta-app`
+   1. Clone the project:      `git clone http://github.com/dsandeepchary/flytta-app`
    
    2. Get into project:      `cd flytta-app`
    
    3. Install dependencies : `npm install`
    
    4. Run with `ng serve` and fire up a browser with `http://localhost:4200/`
+
+If you're prompted with an error related to `@angular-devkit`, run `npm install @angular-devkit/core --save` and then run with `ng serve`.
 
 
 ## Development server
