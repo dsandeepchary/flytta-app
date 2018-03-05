@@ -1,39 +1,63 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1 class="text-primary">
-    Click on a marker to see details.
-  </h1>
-  <!--Need to integrate with nearby places findPlaces(marker.lat, marker.lon);-->
-  <agm-map [zoom]="zoom" [latitude]="defaultLatitude" [longitude]="defaultLongitude" (mapReady)="getLatlons()">
-    <agm-marker *ngFor="let marker of validData" [latitude]="marker.lat" [longitude]="marker.lon"
-                (mouseover)="getMarkerInfo(marker); openNav()" (markerClick)="findPlaces(marker.lat, marker.lon);getMarkerInfo(marker); openNav()"></agm-marker>
-    <!--<ng-template *ngIf="nearByPlaces !== undefined">
-    <agm-marker *ngFor="let place of nearByPlaces" [latitude]="place?.lat" [longitude]="place?.lon"></agm-marker>
-    </ng-template>-->
-  </agm-map>
-</div>
-<!--<span id="menu-icon" (click)="openNav()">&#9776;</span>-->
-<div id="mySidenav" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
-  <h3 class="text-center text-primary" *ngIf="markerInfo !== undefined  && markerInfo.status === '0'">{{markerInfo.item.configuration}} at {{markerInfo.item.area}}</h3>
-  <h3 class="text-center text-primary" *ngIf="markerInfo !== undefined  && markerInfo.status === '1'">Sorry! this property is not available.</h3>
-  <button *ngIf="markerInfo !== undefined  && markerInfo.status === '0'" class='left btn btn-default' (click)="showPrevPic(pic)">&lt;</button>
-  <img class="img-thumbnail" *ngIf="pic && markerInfo !== undefined  && markerInfo.status === '0'" [src]="pic">
-  <button *ngIf="markerInfo !== undefined  && markerInfo.status === '0'" class='right btn btn-default' (click)="showNextPic(pic)">&gt;</button>
-  <br>
-  <hr>
-  <div class="row" *ngIf="markerInfo !== undefined && markerInfo.status === '0'">
-    <div class="col-xs-6">Rent: </div><div class="col-xs-6">{{markerInfo.item.m_rent}}</div>
-    <div class="col-xs-6">Security Deposit: </div><div class="col-xs-6">{{markerInfo.item.advance}}</div>
-    <div class="col-xs-6">Maintenance: </div><div class="col-xs-6">{{markerInfo.item.maintenance}}</div>
-    <div class="col-xs-6">Facing: </div><div class="col-xs-6">{{markerInfo.item.facing}}</div>
-    <div class="col-xs-6">BHK type: </div><div class="col-xs-6">{{markerInfo.item.configuration}}</div>
-    <div class="col-xs-6">Total Area: </div><div class="col-xs-6">{{markerInfo.item.totalArea}}</div>
-    <div class="col-xs-6">Furnishing Details: </div><div class="col-xs-6">{{markerInfo.item.fur}}</div>
-    <div class="col-xs-6">City: </div><div class="col-xs-6">{{markerInfo.item.city}}</div>
-    <div class="col-xs-6">Area: </div><div class="col-xs-6">{{markerInfo.item.area}}</div>
+<div class="container">
+  <div style="text-align:center">
+    <h1 class="text-primary">
+      Click on a marker to see details.
+    </h1>
+    <!--Need to integrate with nearby places findPlaces(marker.lat, marker.lon);-->
+    <agm-map (mapClick)="closeNav()" [zoom]="zoom" [latitude]="defaultLatitude" [longitude]="defaultLongitude" (mapReady)="getLatlons()">
+      <agm-marker *ngFor="let marker of validData" [latitude]="marker.lat" [longitude]="marker.lon"
+                  (mouseover)="getMarkerInfo(marker); openNav()"
+                  (markerClick)="findPlaces(marker.lat, marker.lon);getMarkerInfo(marker); openNav()"></agm-marker>
+      <!--<ng-template *ngIf="nearByPlaces !== undefined">
+      <agm-marker *ngFor="let place of nearByPlaces" [latitude]="place?.lat" [longitude]="place?.lon"></agm-marker>
+      </ng-template>-->
+    </agm-map>
   </div>
-
+  <!--<span id="menu-icon" (click)="openNav()">&#9776;</span>-->
+  <div id="mySidenav" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+    <h3 class="text-center text-primary" *ngIf="markerInfo !== undefined  && markerInfo.status === '0'">
+      {{markerInfo.item.configuration}} at {{markerInfo.item.area}}</h3>
+    <h3 class="text-center text-primary" *ngIf="markerInfo !== undefined  && markerInfo.status === '1'">Sorry! this
+      property is not available.</h3>
+    <img class="img-thumbnail" *ngIf="pic && markerInfo !== undefined  && markerInfo.status === '0'" [src]="pic">
+    <p *ngIf="markerInfo !== undefined  && markerInfo.status === '0'" class='left'
+            (click)="showPrevPic(pic)">&lt;
+    </p>
+    <p *ngIf="markerInfo !== undefined  && markerInfo.status === '0'" class='right'
+            (click)="showNextPic(pic)">&gt;
+    </p>
+    <br>
+    <hr>
+    <div class="row" *ngIf="markerInfo !== undefined && markerInfo.status === '0'">
+      <div class="col-xs-5"><b>Rent</b></div><div class="col-xs-1"><b>:</b></div>
+      <div class="col-xs-6">RS. {{markerInfo.item.m_rent}}</div>
+      <div class="col-xs-5"><b>Security Deposit</b></div><div class="col-xs-1"><b>:</b></div>
+      <div class="col-xs-6">RS. {{markerInfo.item.advance}}</div>
+      <div class="col-xs-5"><b>Maintenance</b></div><div class="col-xs-1"><b>:</b></div>
+      <div class="col-xs-6">RS. {{markerInfo.item.maintenance}}</div>
+      <div class="col-xs-5"><b>Facing</b></div><div class="col-xs-1"><b>:</b></div>
+      <div class="col-xs-6">{{markerInfo.item.facing}}</div>
+      <div class="col-xs-5"><b>BHK type</b></div><div class="col-xs-1"><b>:</b></div>
+      <div class="col-xs-6">{{markerInfo.item.configuration}}</div>
+      <div class="col-xs-5"><b>Total Area</b></div><div class="col-xs-1"><b>:</b></div>
+      <div class="col-xs-6">{{markerInfo.item.totalArea}} sq. ft</div>
+      <div class="col-xs-5"><b>Furnishing Details</b></div><div class="col-xs-1"><b>:</b></div>
+      <div class="col-xs-6">{{markerInfo.item.fur}}</div>
+      <div class="col-xs-5"><b>City</b></div><div class="col-xs-1"><b>:</b></div>
+      <div class="col-xs-6">{{markerInfo.item.city}}</div>
+      <div class="col-xs-5"><b>Area</b></div><div class="col-xs-1"><b>:</b></div>
+      <div class="col-xs-6">{{markerInfo.item.area}}</div>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div class="places" *ngIf="nearByPlaces !== undefined && nearByPlaces !== null && nearByPlaces.length !== 0">
+      <h3 class="text-center">Near by services: </h3>
+      <ul>
+      <li *ngFor="let place of nearByPlaces"><h5>{{place?.name | titlecase}}</h5></li>
+      </ul>
+    </div>
+  </div>
 </div>
-
-

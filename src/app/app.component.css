@@ -33,15 +33,32 @@ agm-map {
   text-decoration: none;
 }
 img {
-  height: 220px;
-  width: 220px;
-  margin: 0 9%;
+  height: 250px;
+  width: 100%;
+  margin-bottom: -195px;
 }
 .left, .right{
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 50px;
+  border-color: transparent;
+  color: white;
   z-index: 9999 !important;
-  border-radius: 999px;
+  border-radius: 50%;
 }
-.row {
+.left {
+  position: relative;
+  bottom: -35px;
+  left: 12px;
+  background-color: transparent;
+}
+.right{
+  position: relative;
+  top: -50px;
+  left: 350px;
+  background-color: transparent;
+}
+.row, .places {
   text-align: left;
   margin: 0 auto;
 }

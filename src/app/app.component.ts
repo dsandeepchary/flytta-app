@@ -13,7 +13,7 @@ export class AppComponent implements OnInit, DoCheck {
   defaultLatitude;
   defaultLongitude;
   picurls = [];
-  public nearByPlaces;
+  nearByPlaces = [];
   pic;
   validData: LatLon[] = [];
   markerInfo;
@@ -39,18 +39,19 @@ export class AppComponent implements OnInit, DoCheck {
   // Find places near a marker
   public findPlaces(lat, lon) {
     const that = this;
+    that.nearByPlaces = [];
     const marker = new google.maps.LatLng(lat, lon);
     const map = new google.maps.Map(document.createElement('div'), {center: marker});
     const request = {
       location: marker,
       radius: 200, // around 200meters
-      types: ['services'] // categories
+      types: ['service'] // categories
     };
     const placesService = new google.maps.places.PlacesService(map);
     placesService.nearbySearch(request, function(results, status) {
       const nearBy = [];
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (let i = 1; i < results.length; i ++) {
+        for (let i = 0; i < results.length; i ++) {
           nearBy.push({'lat': results[i].geometry.location.lat, 'lon': results[i].geometry.location.lng, 'name': results[i].name});
         }
       }
@@ -82,17 +83,22 @@ export class AppComponent implements OnInit, DoCheck {
   }
   showPrevPic(pic) {
     const index = this.picurls.indexOf(pic);
-    if (index === 0) {
+    console.log(pic);
+    if (index !== 0) {
       this.pic = '';
-      this.pic = this.picurls[this.picurls[this.picurls.length - 1]];
+      const prevPic = this.picurls[index - 2];
+      this.pic = prevPic;
+      console.log(pic);
     } else {
       this.pic = '';
-      this.pic = this.picurls[index - 1];
+      const prevPic = this.picurls[this.picurls.length - 2];
+      this.pic = prevPic;
+      console.log(pic);
     }
   }
   ngDoCheck() {
     if (this.pic !== '' || this.pic !== undefined || this.pic !== null) {
-      setInterval(this.showNextPic(this.pic), 1000);
+      setInterval(this.showNextPic(this.pic), 3000);
     }
   }
   ngOnInit() {
